@@ -5,7 +5,8 @@ import pkg from './package.json';
 
 export const builtins = ['electron', ...builtinModules.map((m) => [m, `node:${m}`]).flat()];
 
-export const external = [...builtins, ...Object.keys('dependencies' in pkg ? (pkg.dependencies as Record<string, unknown>) : {})];
+// export const external = [...builtins, ...Object.keys('dependencies' in pkg ? (pkg.dependencies as Record<string, unknown>) : {})];// 这样生产环境中，会无法打包 dependencies 依赖，因此删减了该代码。
+export const external = [...builtins];
 
 export function getBuildConfig(env: ConfigEnv<'build'>): UserConfig {
   const { root, mode, command } = env;
